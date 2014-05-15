@@ -1,0 +1,156 @@
+package game;
+
+import java.awt.Color;
+import java.awt.Graphics;
+//class for the painting in the game
+import java.awt.Image;
+//class for the painting in the game
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+
+import javax.swing.ImageIcon;
+//classes for the creating the keys for controlling
+import javax.swing.JFrame;
+//class for creating the window of the game
+
+public class SpaceCrushers_Player extends JFrame implements Runnable{
+	
+	int x,y,xDirection,yDirection;
+	private Image dbImage;
+	private Graphics dbg;
+	//double buffering
+	Image player;
+	
+	public void run(){
+		//method for moving of the object smoothly and includes also diagonally moving
+		try{
+			while(true){
+				
+				move();
+				Thread.sleep(3);
+			}
+		}
+		catch(Exception e){
+			System.out.println("Error");
+		}
+	}
+	
+	public void move(){
+		
+		x += xDirection;
+		y += yDirection;
+		//statements for basic collision detection
+		if(x <= 30)
+			x = 30;
+		if(x >= 450)
+			x = 450;
+		if(y <= 50)
+			y = 50;
+		if(y >= 450)
+			y = 450;
+	}
+	
+	public void setXDirection(int xdir){
+		//setting the direction of x
+		xDirection = xdir;
+	}
+	
+	public void setYDirection(int ydir){
+		//setting the direction of y
+		yDirection = ydir;
+	}
+	
+	public class AL extends KeyAdapter {
+		//method for creating keys for the controlling of the object
+		
+		public void keyPressed(KeyEvent e){
+			int keyCode = e.getKeyCode();
+			//this integer store the value of the pressed key in a code
+			
+			if (keyCode == e.VK_LEFT) {
+				setXDirection(-1);
+			}
+			
+			if (keyCode == e.VK_RIGHT) {
+				setXDirection(+1);
+			}
+			
+			if (keyCode == e.VK_UP) {
+				setYDirection(-1);
+			}
+			
+			if (keyCode == e.VK_DOWN) {
+				setYDirection(+1);
+			}
+			
+		}
+	    public void keyReleased(KeyEvent e){
+			int keyCode = e.getKeyCode();
+			
+			if (keyCode == e.VK_LEFT) {
+				setXDirection(0);//here is 0,because the key will sto
+			}
+			
+			if (keyCode == e.VK_RIGHT) {
+				setXDirection(0);
+			}
+			
+			if (keyCode == e.VK_UP) {
+				setYDirection(0);
+			}
+			
+			if (keyCode == e.VK_DOWN) {
+				setYDirection(0);
+			}
+	    }
+	}
+	public SpaceCrushers_Player(){
+		
+		//load images
+		ImageIcon i = new ImageIcon("");//here in () we have to load the image of the player
+		player = i.getImage();
+		//game properties
+		addKeyListener(new AL());
+		setTitle("Space Crushers");
+		setSize(500,500);
+		setResizable(false);
+		setVisible(true);
+		setBackground(Color.blue);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		x = 150;
+		y = 150;
+		//coordinates of the position of the object(in this case oval)
+		
+		}
+	
+	public void paint(Graphics g){
+		//method for updating the position of the image by not painting the last position of it
+		
+		dbImage = createImage(getWidth(), getHeight());
+		dbg = dbImage.getGraphics();
+		paintComponent(dbg);
+		g.drawImage(dbImage, 0, 0, this);
+	}
+	
+	public void paintComponent(Graphics g){
+		//method for painting of the object
+		
+		g.setColor(Color.red);
+		g.fillOval(x, y, 15, 15);
+		//g.drawImage(player,x,y,this) - this will be made as a code when the image of the player will be loaded
+		
+		repaint();
+	}
+
+	public static void main(String[] args) {
+		//method for creating the window for the game
+		
+		SpaceCrushers_Player game = new SpaceCrushers_Player();
+		//Threads
+		Thread t1 = new Thread(game);
+		t1.start();
+	}
+
+}
