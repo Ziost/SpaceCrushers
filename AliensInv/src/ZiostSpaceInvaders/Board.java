@@ -23,7 +23,6 @@ public class Board extends JPanel implements Runnable {
 	
 
 	public Board(){		
-		setBackground(Color.DARK_GRAY);
 		player = new Player();
 			
 	}
@@ -37,13 +36,11 @@ public class Board extends JPanel implements Runnable {
 			Aliens a = aliensList.get(i);
 			boolean draw = true;
 			if(a.isVisible()){			
-				//if(!player.readyToFire){
 					if(player.bullets.size() > 0){
 						for (int j = 0; j < player.bullets.size(); j++) {
 							if(a.getBounds().intersects(player.bullets.get(j))){
 								System.out.println("Collide");
 								a.setVisible(false);
-								//player.readyToFire = true;
 								player.bullets.remove(j);
 								draw = false;
 							}
@@ -53,7 +50,6 @@ public class Board extends JPanel implements Runnable {
 						System.out.println("GAME OVER");
 						System.exit(0);
 					}
-				//}
 				if (draw) {
 					g.drawImage(a.getImage(),a.getX(),a.getY(),this);
 				}

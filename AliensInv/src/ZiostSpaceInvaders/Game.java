@@ -28,6 +28,7 @@ public class Game extends JFrame  {
 		setSize(Width,Height);
 		setResizable(false);
 		setVisible(true);
+		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(new AL());
 	}
