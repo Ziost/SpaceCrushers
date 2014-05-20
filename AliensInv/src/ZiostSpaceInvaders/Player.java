@@ -29,7 +29,7 @@ public class Player implements Runnable {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(Game.imageLoad("../enemy_64.png"), x-15, y, null);
+		g.drawImage(Game.imageLoad("../player_64.png"), x-15, y, null);
 		g.setColor(Color.BLACK);
 		for (int i = 0; i < bullets.size(); i++) {
 			g.fillRect(bullets.get(i).x, bullets.get(i).y,
@@ -38,7 +38,7 @@ public class Player implements Runnable {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 40, 10);
+		return new Rectangle(x+20, y, 10, 3);
 	}
 
 	public void shoot() {

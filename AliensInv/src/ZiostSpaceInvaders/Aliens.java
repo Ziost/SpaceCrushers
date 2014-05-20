@@ -42,7 +42,7 @@ public class Aliens {
 		return image;
 	}
 	public Rectangle getBounds(){
-		return new Rectangle(x,y,width,height);
+		return new Rectangle(x,y-25,width-10,height);
 	}
 	public void setVisible(Boolean v) {
 		this.visibale = v;

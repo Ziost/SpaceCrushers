@@ -30,7 +30,6 @@ public class Board extends JPanel implements Runnable {
 		al = new Aliens(rand.nextInt(360) + 2 ,0);
 		aliensList.add(al);
 	}
-
 	public void draw(Graphics g){		
 		for (int i = 0; i < aliensList.size(); i++) {
 			Aliens a = aliensList.get(i);
