@@ -35,29 +35,32 @@ public class Board extends JPanel implements Runnable {
 		for (int i = 0; i < aliensList.size(); i++) {
 			Aliens a = aliensList.get(i);
 			boolean draw = true;
-			if (a.isVisible()) {
-				if (player.bullets.size() > 0) {
-					for (int j = 0; j < player.bullets.size(); j++) {
-						if (a.getBounds().intersects(player.bullets.get(j))) {
-							System.out.println("Collide");
-							a.setVisible(false);
-							player.bullets.remove(j);
-							g.drawImage(Game.imageLoad("../explosion1.png"),
-									a.getX(), a.getY(), null);
-							draw = false;
+			if (Game.inGame) {
+				if (a.isVisible()) {
+					if (player.bullets.size() > 0) {
+						for (int j = 0; j < player.bullets.size(); j++) {
+							if (a.getBounds().intersects(player.bullets.get(j))) {
+								System.out.println("Collide");
+								a.setVisible(false);
+								player.bullets.remove(j);
+								g.drawImage(
+										Game.imageLoad("../explosion1.png"),
+										a.getX(), a.getY(), null);
+								draw = false;
+							}
 						}
 					}
+					if (player.getBounds().intersects(a.getBounds())
+							|| player.getBaseBounds().intersects(a.getBounds())) {
+						System.out.println("GAME OVER");
+						Game.inGame = false;
+					}
+					if (draw) {
+						g.drawImage(a.getImage(), a.getX(), a.getY(), this);
+					}
+				} else {
+					aliensList.remove(i);
 				}
-				if (player.getBounds().intersects(a.getBounds()) ||
-						player.getBaseBounds().intersects(a.getBounds())) {
-					System.out.println("GAME OVER");
-					System.exit(0);
-				}
-				if (draw) {
-					g.drawImage(a.getImage(), a.getX(), a.getY(), this);
-				}
-			} else {
-				aliensList.remove(i);
 			}
 		}
 	}

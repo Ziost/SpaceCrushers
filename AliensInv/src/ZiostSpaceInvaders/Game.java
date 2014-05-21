@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Game extends JFrame  {
 	Image dbImage;
 	Graphics dbg;
+	public static Boolean inGame = true;
 	static Image image = null;
 	public static int Width = 500;
 	public static int Height = 650;
@@ -30,6 +31,7 @@ public class Game extends JFrame  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(new AL());
 	}
+	
 	  public static Image imageLoad(String i){
 	    	try {
 				image = ImageIO.read(Game.class.getResource(i));
@@ -63,7 +65,12 @@ public class Game extends JFrame  {
 
 	@Override
 	public void paint(Graphics g){
+		if(inGame){
 		dbImage = bgImageLoad("../1.png");
+		}
+		else {
+			dbImage = bgImageLoad("../gameOver.png");
+		}
 		dbg = dbImage.getGraphics();
 		draw(dbg);
 		g.drawImage(dbImage, 0, 0, this);
