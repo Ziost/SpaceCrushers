@@ -30,7 +30,7 @@ public class Player implements Runnable {
 
 	public void draw(Graphics g) {
 		if (Game.inGame) {
-			g.drawImage(Game.imageLoad("../player.png"), x, y, null);
+			g.drawImage(Game.imageLoad("../player.png"), x, y - 10, null);
 			// g.setColor(Color.RED);
 			// g.fillRect(x, y + 30, 100, 15);
 			// g.fillRect(x+45, y, 10, 40);
@@ -62,10 +62,10 @@ public class Player implements Runnable {
 
 	public void move() {
 		x += xDirection;
-		if (x <= 20)
-			x = 20;
-		if (x >= 454)
-			x = 454;
+		if (x <= 10)
+			x = 10;
+		if (x >= 400)
+			x = 400;
 	}
 
 	public void keyPressed(KeyEvent e) {
