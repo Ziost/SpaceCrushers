@@ -28,7 +28,7 @@ public class Aliens {
 		
 	public void move(){
 		y++;		
-		if(y >= 550){
+		if(y >= 600){
 			setVisible(false);
 		}
 	}

@@ -29,12 +29,16 @@ public class Player implements Runnable {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(Game.imageLoad("../player_64.png"), x-15, y, null);
-		g.setColor(Color.BLACK);
+		g.drawImage(Game.imageLoad("../player.png"), x-15, y, null);
 		for (int i = 0; i < bullets.size(); i++) {
-			g.fillRect(bullets.get(i).x, bullets.get(i).y,
-					bullets.get(i).width, bullets.get(i).height);
+			g.drawImage(Game.imageLoad("../r.png")
+					,bullets.get(i).x,bullets.get(i).y,null);
 		}
+//		g.setColor(Color.RED);
+//		for (int i = 0; i < bullets.size(); i++) {
+//			g.fillRect(bullets.get(i).x, bullets.get(i).y,
+//					bullets.get(i).width, bullets.get(i).height);
+//		}
 	}
 
 	public Rectangle getBounds() {
@@ -49,8 +53,8 @@ public class Player implements Runnable {
 
 	public void move() {
 		x += xDirection;
-		if (x <= 0)
-			x = 0;
+		if (x <= 20)
+			x = 20;
 		if (x >= 454)
 			x = 454;
 	}
@@ -67,14 +71,15 @@ public class Player implements Runnable {
 			if (bullets.size() < MAX_BULLETS) {
 			}
 			if (readyToFire) {
-				by = y - 7;
-				bx = x + 18;
-				Rectangle bullet = new Rectangle(bx, by, 3, 5);
+				by = y - 5;
+				bx = x ;
+				Rectangle bullet = new Rectangle(bx - 10, by, 2, 20);
 				bullets.add(bullet);
+				Rectangle bullet2 = new Rectangle(bx+65, by, 2, 20);
+				bullets.add(bullet2);
 			}
 		}
 	}
-
 	public void keyReleased(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if (keyCode == e.VK_LEFT) {

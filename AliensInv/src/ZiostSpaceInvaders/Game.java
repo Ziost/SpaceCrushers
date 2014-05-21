@@ -1,12 +1,11 @@
 package ZiostSpaceInvaders;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -21,16 +20,13 @@ public class Game extends JFrame  {
 	public static int Width = 500;
 	public static int Height = 650;
 	public static Board board;
+	private static Image bg;
 	JPanel gamePanel = new JPanel();
-    Image bg;
-	public Game() throws MalformedURLException {		
+	public Game()  {		
 		setTitle("Crusher");
 		setSize(Width,Height);
 		setResizable(false);
-		 URL urlBG = new URL("http://s240.photobucket.com/user/churumba1/media/Cosmos.gif.html");
-	        bg = Toolkit.getDefaultToolkit().createImage(urlBG);
 		setVisible(true);
-//		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(new AL());
 	}
@@ -43,6 +39,15 @@ public class Game extends JFrame  {
 			}
 	    	return image;
 	    }
+	  public static Image bgImageLoad(String s){
+		  try {
+			bg = ImageIO.read(Game.class.getResource(s));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return bg;
+	  }
 	public class AL extends KeyAdapter {
 
 		@Override
@@ -58,31 +63,22 @@ public class Game extends JFrame  {
 
 	@Override
 	public void paint(Graphics g){
-		dbImage = createImage(getWidth(), getHeight());
-//		dbImage = background;
+		dbImage = bgImageLoad("../1.png");
 		dbg = dbImage.getGraphics();
 		draw(dbg);
 		g.drawImage(dbImage, 0, 0, this);
 	}
 
 	public void draw(Graphics g){
-		g.drawImage(bg, 100, 100, null);
-		super.paint(g);
-		
 		board.player.draw(g);
 		Game.board.draw(g);
-		
-//		g.drawImage(dbImage, 50, 50, this);
 		repaint();
 	}
 
 	public static void main(String[] args) {
-		try {
+		
 			Game game = new Game();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 		board = new Board();
 		Thread b1 = new Thread(board);
