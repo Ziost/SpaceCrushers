@@ -29,7 +29,10 @@ public class Player implements Runnable {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(Game.imageLoad("../player.png"), x-15, y, null);
+		g.drawImage(Game.imageLoad("../player.png"),  x, y, null);
+//		g.setColor(Color.RED);
+//		g.fillRect(x, y + 30, 100, 15);
+//		g.fillRect(x+45, y, 10, 40);
 		for (int i = 0; i < bullets.size(); i++) {
 			g.drawImage(Game.imageLoad("../r.png")
 					,bullets.get(i).x,bullets.get(i).y,null);
@@ -42,7 +45,10 @@ public class Player implements Runnable {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x+20, y, 10, 3);
+		return new Rectangle(x, y + 30, 100, 15);
+	}
+	public Rectangle getBaseBounds(){
+		return new Rectangle(x+45,y,10,40);
 	}
 
 	public void shoot() {
@@ -73,9 +79,9 @@ public class Player implements Runnable {
 			if (readyToFire) {
 				by = y - 5;
 				bx = x ;
-				Rectangle bullet = new Rectangle(bx - 10, by, 2, 20);
+				Rectangle bullet = new Rectangle(bx , by, 2, 20);
 				bullets.add(bullet);
-				Rectangle bullet2 = new Rectangle(bx+65, by, 2, 20);
+				Rectangle bullet2 = new Rectangle(bx+85, by, 2, 20);
 				bullets.add(bullet2);
 			}
 		}
